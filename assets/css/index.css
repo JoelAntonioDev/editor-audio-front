@@ -1,0 +1,363 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+
+header nav ul{
+    display: flex;
+    gap: 15px;
+    list-style-type: none;
+    font-size: 14pt;
+    padding: 5px;
+}
+
+section{
+    height: 100vh;
+}
+.audio-manager{
+    display: flex;
+    background-color: #454545;
+    flex-direction: row;
+    height: 240px;
+    max-height: 240px;
+}
+.audio-controllers{
+    padding-top: 5px;
+    padding-left: 5px;
+    background-color: #333333;
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border-bottom: 1px solid #ccc;
+    position: relative;
+    max-height: 240px;
+    overflow-y: hidden;
+    
+    
+}
+.audio-controller-1{
+
+}
+.audio-controller-2{
+
+}
+
+.btn-controllers{
+    padding: 7px;
+}
+.audio-viewer{
+    width: 100%;
+    box-sizing: border-box;
+    max-height: 240px;
+    overflow-y: auto;
+    scrollbar-width: thin; /* Para navegadores como Firefox */
+    scrollbar-color: #888 transparent;
+    position: relative;
+}
+
+.audio-viewer::-webkit-scrollbar {
+    width: 8px; /* Largura do scroll */
+}
+.audio-viewer::-webkit-scrollbar-thumb {
+    background-color: #888; /* Cor da barra de rolagem */
+    border-radius: 4px;
+}
+
+.audio-viewer::-webkit-scrollbar-thumb:hover {
+    background-color: #555; /* Cor ao passar o mouse */
+}
+
+.audio-mixer{
+    background-color: #333333;
+    height: auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.audio-mixer-controllers{
+    display: flex;
+    gap: 10px;
+}
+
+.mixer-buttons-1, .mixer-buttons-2, .mixer-buttons-3{
+    background-color: #292929;
+    padding: 2px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+
+.audio-viewer-time{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+    font-size: 16pt;
+    font-weight: 900;
+    color:#e7e5e5;
+}
+.audio-mixer-status{
+    color:#e7e5e5;
+}
+.audio-mixer-status{
+    width: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ .audio-mixer-select, .compasso, .bpm, .playback-rate, .playback-viewer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 3px;
+}
+
+.audio-mixer-select, .compasso, .playback-rate{
+    padding:10px;
+    background-color: rgba(36, 36, 36, 1);
+    height: 40px;
+    border-radius: 5px;
+    gap: 30px;
+    color:#a0a0a0;
+}
+
+.bpm, .playback-viewer{
+    display: flex;
+    flex-direction: column;
+    padding:15px;
+    background-color: rgba(36, 36, 36, 1);
+    height: 40px;
+    color:#a0a0a0;
+    border-radius: 5px;
+}
+
+.mixer-buttons-1 button,
+  .mixer-buttons-3 button{
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    border-color: grey;
+    background-color: #0F0F0F;
+    color:#a0a0a0;
+}
+
+.mixer-buttons-2 button{
+    width: 35px;
+    height: 35px;
+    border-radius: 20px;
+    border-color: grey;
+    background-color: black;
+    color: white;
+}
+
+.mesa-som{
+    height: 100%;
+    box-sizing: border-box;
+
+}
+
+.master{
+    width: 14%;
+    height: 100%;
+    background-color: #3b3a3a;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    /*font-size: 8pt;*/
+}
+.master .master-left {
+    width: 80%;
+}
+
+.master .master-right{
+    width: 20%;
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+.master .master-right div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 9pt;
+}
+.master .master-right :is(div, button){
+    width: 90%;
+    height: 40px;
+}
+
+.master .master-right button{
+    
+}
+.master .master-left .panner{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 4px;
+}
+
+.volume-master-display{
+    background-color: #252424;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.vol-controller-master{
+    background-color: #252424;
+    padding: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+
+.vol-controller-master div ul{
+    list-style-type: none;
+}
+
+.db-1{
+ 
+}
+
+.db-2{
+
+}
+
+.db-3{
+}
+
+.controlador-volume{
+    background-color: red;
+
+    width:15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.barra-volume{
+    width: 3px;
+    height: 100%;
+    background-color: black;
+}
+
+.barra-volume span{
+    color: black;
+}
+
+.volume-mover{
+    background-color: green;
+    width: 20px;
+    padding: 4px;
+    border-radius: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mixer {
+    background-color: #dbdada;
+    width: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.bar {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background-color: white;
+    left: 0;
+    cursor: pointer;
+}
+
+/* Estilo do modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    color: black;
+  }
+  
+  .progress-container {
+    width: 100%;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    margin: 20px 0;
+    height: 20px;
+    overflow: hidden;
+  }
+  
+  .progress-bar {
+    width: 0%;
+    height: 100%;
+    background-color: #76c7c0;
+    transition: width 0.2s ease;
+  }
+  
+  #progressText {
+    font-size: 16px;
+  }
+  #loadingModal {
+    display: none;
+    z-index: 9999; 
+
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 100%;
+}
+
+.time-list {
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+    width: 100%;
+    justify-content: space-between;
+    background-color: aliceblue;
+    color:black;
+    display: none;
+}
+
+.audio-controls{
+    height: 20px;
+    background-color: red;
+}
