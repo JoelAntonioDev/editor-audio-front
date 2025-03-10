@@ -1,238 +1,30 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="pt-pt">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JAUDIO</title>
-    <link rel="stylesheet" href="./assets/css/global.css">
-    <link rel="stylesheet" href="./assets/css/index.css">
-    <script src="./assets/js/main.js" defer></script>
-    <script src="./assets/js/audioManager.js"></script>
-    <script src="./assets/js/audioUI.js"></script>
-    <script src="./assets/js/fileHandler.js"></script>
-    <script src="./assets/js/requests.js" defer></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    <title>Página de Login</title>
+    <link rel="stylesheet" href="./assets/css/login.css">
+    <script src="./assets/js/forms/loginForm.js" defer></script>
 </head>
-
 <body>
-    <header>
-        <nav>
-            <ul>
-                <li>File</li>
-                <li>Edit</li>
-                <li>View</li>
-                <li>Insert</li>
-                <li>Item</li>
-                <li>Track</li>
-                <li>Options</li>
-                <li>Actions</li>
-                <li>Help</li>
-            </ul>
-        </nav>
-    </header>
-    <section>
-        <div class="audio-manager">
-            <div class="audio-controllers">
-                <div class="audio-controllers-1">
-                    <button class="btn-controllers" id="btn-c1">
-                        <i class="fa-solid fa-file"></i>
-                    </button>
-                    <input type="file" id="faixaFile" style="display: none;">
-                    <button class="btn-controllers" id="btn-c2">
-                        <i class="fa-solid fa-folder-open"></i>
-                    </button>
-                    <button class="btn-controllers" id="btn-c3">
-                        <i class="fa-solid fa-floppy-disk"></i>
-                    </button>
-                    <button class="btn-controllers" id="btn-c4">
-                        <i class="fa-solid fa-rotate-left"></i>
-                    </button>
-                    <button class="btn-controllers" id="btn-c5">
-                        <i class="fa-solid fa-rotate-right"></i>
-                    </button>
-
-
-                </div>
-                <div class="audio-controllers-2">
-                    <button class="" id="btn-c6" style="padding: 5px;">
-                        <img src="./assets/media/img/metronome.svg" alt="Metrônomo" style="width: 24px; height: 18px;">
-                    </button>
-                    <button class="btn-controllers" id="btn-c7">
-                        <i class="fa-solid fa-scissors"></i>
-                    </button>
-                    <button class="btn-controllers" id="btn-c8">
-                        <i class="fa-solid fa-table-cells"></i>
-                    </button>
-                    <button class="btn-controllers" id="btn-c9">
-                        <i class="fa-solid fa-object-group"></i>
-                    </button>
-
-                </div>
-            </div>
-            <div class="audio-viewer">
-                <div class="time-reproducer"
-                    style="display: flex;flex-direction: row; width: 100%;height: 20px;background-color: aliceblue;">
-                </div>
-                <audio id="audio" controls style="display: none;"></audio>
-                <div class="mixer" style="height: 200px;width: 100%;display: none;">
-                    <div class="bar" id="movivel">
-                    </div>   
-                </div>
-            </div>
-            <div class="time-info"></div>
+    <div class="container">
+        <div class="left">
+            <img src="./assets/media/img/music.jpg" alt="Imagem de login">
         </div>
-
-        <div class="audio-mixer">
-            <div class="audio-mixer-controllers">
-                <div class="mixer-buttons-1">
-                    <button id="btn-prev"><i class="fa-solid fa-backward"></i></button>
-                    <button id="btn-pos"><i class="fa-solid fa-forward"></i></button>
-                </div>
-                <div class="mixer-buttons-2">
-                    <button id="btn-rec" style="background-color: #57313E;"><i class="fa-solid fa-circle"></i>
-                    </button>
-                    <button id="btn-play"><i class="fa-solid fa-play"></i></button>
-                    <button id="btn-restart"><i class="fa-solid fa-rotate-right"></i></button>
-                </div>
-                <div class="mixer-buttons-3">
-                    <button id="btn-stop"><i class="fa-solid fa-stop"></i></button>
-                    <button id="btn-pause"><i class="fa-solid fa-pause"></i></button>
-                </div>
-                <div class="audio-viewer-time" id="display-time">
-                    00.00 / 00.00
-                </div>
-                <div class="duration">
-                    00.00 / 00.00
-                </div>
-                <div
-                    style="display: flex;flex-direction: row;gap:10px;width: 69%;justify-content: center;align-items: center;">
-                    <div class="audio-mixer-status">
-                        [ PAUSADO ]
-                    </div>
-                    <div class="audio-mixer-select">
-                        <span>Selection:</span>
-                        <span>start-time</span>
-                        <span>end-time</span>
-                        <span>total-time</span>
-                    </div>
-                    <div class="compasso">
-                        4/4
-                    </div>
-                    <div class="bpm">
-                        <span>BPM</span>
-                        <span>120</span>
-                    </div>
-                    <div class="playback-rate">
-                        <button><i class="fa-solid fa-circle-notch"></i></button>
-                    </div>
-                    <div class="playback-viewer">
-                        <span>RATE</span>
-                        <span>1.0</span>
-                    </div>
-                </div>
-
-            </div>
-            <div class="mesa-som">
-                <div class="master">
-                    <div class="master-left">
-                        <div class="panner">
-                            <span>center</span>
-                            <span><button><i class="fa-solid fa-circle-notch"></i></button></span>
-                        </div>
-                        <div class="volume-master-display">
-                            0.00dB
-                        </div>
-                        <div class="vol-controller-master">
-                            <div class="db-1">
-                                <ul>
-                                    <li>12</li>
-                                    <li>6</li>
-                                    <li>0-</li>
-                                    <li>6-</li>
-                                    <li>12-</li>
-                                    <li>18-</li>
-                                    <li>24-</li>
-                                    <li>30-</li>
-                                    <li>36-</li>
-                                    <li>42-</li>
-                                </ul>
-                            </div>
-                            <div class="db-2">
-                                <ul>
-                                    <li>-6-</li>
-                                    <li>-18-</li>
-                                    <li>-30-</li>
-                                    <li>-42-</li>
-                                    <li>-54-</li>
-                                </ul>
-                            </div>
-                            <div class="db-3">
-                                <ul>
-                                    <li>12</li>
-                                    <li>6</li>
-                                    <li>-0</li>
-                                    <li>-6</li>
-                                    <li>-12</li>
-                                    <li>-18</li>
-                                    <li>-24</li>
-                                    <li>-30</li>
-                                    <li>-36</li>
-                                    <li>-42</li>
-                                </ul>
-                            </div>
-                            <div class="controlador-volume">
-                                <div class="barra-volume"><span>.</span></div>
-                                <div class="volume-mover">p</div>
-                            </div>
-                        </div>
-                        <div style="display: flex;justify-content: center;background-color: #252424;padding: 5PX;">
-                            <span>MASTER</span>
-                        </div>
-                    </div>
-                    <div class="master-right mesa-options" style="color: black;">
-                        <div>
-                            <button>1</button>
-                            <span>Mono</span>
-                        </div>
-                        <div>
-                            <button>M</button>
-                            <button>S</button>
-                        </div>
-                        <div>
-                            <button>1</button>
-                            <span>Route</span>
-                        </div>
-                        <div>
-                            <button>FX</button>
-                            <button>on</button>
-                        </div>
-                        <div>
-                            <button>1</button>
-                            <span>TRIM</span>
-                        </div>
-                        <div>
-                            <button>I</button>
-                            <span></span>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <div id="loadingModal" class="modal">
-        <div class="modal-content">
-            <h2>Carregando Áudio...</h2>
-            <p><strong>Nome:</strong> <span id="fileName">N/A</span></p>
-            <p><strong>Formato:</strong> <span id="fileFormat">N/A</span></p>
-            <p><strong>Tamanho:</strong> <span id="fileSize">N/A</span></p>
-            <div class="progress-container">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-            <p id="progressText">0%</p>
+        <div class="right">
+            <form id="loginForm">
+                <h2>Login</h2>
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required placeholder="Insira o seu e-mail">
+                
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required placeholder="insira a sua password">
+                
+                <button type="submit">Entrar</button>
+                <button type="button" id="registerBtn" onclick="">Criar Conta</button>
+            </form>
         </div>
     </div>
 </body>
-
 </html>

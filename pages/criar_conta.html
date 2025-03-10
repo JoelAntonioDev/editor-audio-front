@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Criar Conta</title>
+    <link rel="stylesheet" href="./../assets/css/criar_conta.css">
+    <script src="./../assets/js/forms/addUsuarioForm.js" defer></script>
+</head>
+<body>
+    <div class="container">
+        <div class="left">
+            <img src="./../assets/media/img/music.jpg" alt="Imagem de Adição">
+        </div>
+        <div class="right">
+            <form id="addUsuarioForm" style="padding-top:25px;padding-bottom:25px;">
+                <h2>Adicionar Usuário</h2>
+                <label for="nome">Nome:</label>
+                <input type="text" id="nomeUsuario" name="nomeUsuario">
+                <label for="sobrenome">Sobrenome:</label>
+                <input type="text" id="sobrenome" name="sobrenome" required>
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="password">Senha:</label>
+                <input type="password" id="password" name="password" required>
+                <label for="password">Confirmar Senha:</label>
+                <input type="password" id="passwordConfirm" name="passwordConfirm" required>
+                
+                <button type="submit" id="registerBtn" >Criar Conta</button>
+                <button type="button">Fazer Login</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

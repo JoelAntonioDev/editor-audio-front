@@ -1,0 +1,192 @@
+    <!DOCTYPE html>
+    <html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>JAUDIO</title>
+        <link rel="stylesheet" href="./../assets/css/global.css">
+        <link rel="stylesheet" href="./../assets/css/index.css">
+        <script src="./../assets/js/index.js" defer></script>
+        <script src="./../assets/js/audioManager.js"></script>
+        <script src="./../assets/js/audioUI.js"></script>
+        <script src="./../assets/js/main.js" defer></script>
+        <script src="./../assets/js/requests.js" defer></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+    </head>
+
+    <body>
+        <div id="toast-container"></div>
+      <!-- Overlay para escurecer o fundo -->
+    <div class="guide-overlay" id="guideOverlay"></div>
+
+    <!-- Modais do guia -->
+    <div class="guide" id="guide1">
+        <p>Aqui podes adicionar um novo ficheiro.</p>
+        <button onclick="nextGuide(1)">OK</button>
+    </div>
+    <div class="guide" id="guide2">
+        <p>No Botão de salvar podes baixar o teu projecto, em arquivo ZIP com todas as versões do teu áudio.</p>
+        <button onclick="nextGuide(2)">OK</button>
+    </div>
+    <div class="guide" id="guide3">
+        <p>O Botão de retroceder te permite voltar para uma versão passada do teu áudio</p>
+        <button onclick="nextGuide(3)">OK</button>
+    </div>
+    <div class="guide" id="guide4">
+        <p>Aqui é possível mesclar audios</p>
+        <button onclick="nextGuide(4)">OK</button>
+    </div>
+    <div class="guide" id="guide5">
+        <p>Aqui é possível alongar audios de três formas, adicionando no inicio, adicionar ao fim, e repetir fragmentos do áudio</p>
+        <button onclick="nextGuide(5)">OK</button>
+    </div>
+    <div class="guide" id="guide6">
+        <p>Aqui é possível recortar o áudio</p>
+        <button onclick="nextGuide(6)">OK</button>
+    </div>
+
+        <header>
+            <h1 id="project-title"></h1>
+            <h4 id="email-display"></h4>
+            <div>
+                <button onclick="verProjectos()" class="btn-ver-projectos">Ver Projectos</button>
+                <button onclick="logout()" class="btn-sair" style="background-color: lightgreen;color:black;">Sair</button>
+            </div>
+          
+          </header>
+        <section>
+            <div class="audio-manager">
+                <div class="audio-controllers">
+                    <div class="audio-controllers-1">
+                        <button class="btn-controllers btn-g1" id="btn-c1">
+                            <i class="fa-solid fa-file"></i>
+                        </button>
+                        <input type="file" id="faixaFile" style="display: none;" accept="audio/*">
+                        
+                        <button class="btn-controllers btn-g2" id="btn-c3">
+                            <i class="fa-solid fa-floppy-disk"></i>
+                        </button>
+                        <button class="btn-controllers btn-g3" id="btn-c4">
+                            <i class="fa-solid fa-rotate-left"></i>
+                        </button>
+                        <button class="btn-controllers btn-gg4" id="btn-c5">
+                            EFX
+                        </button>
+
+
+                    </div>
+                    <div class="audio-controllers-2">
+                       
+                       
+                        <button class="btn-controllers btn-g4" id="btn-c8">
+                            <i class="fa-solid fa-table-cells"></i>
+                        </button>
+                        <button class="btn-controllers btn-g5" id="btn-c9">
+                            <i class="fa-solid fa-object-group"></i>
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <div class="audio-viewer">
+                    <div class="time-reproducer"
+                        style="display: flex;flex-direction: row; width: 100%;height: 20px;background-color: aliceblue;">
+                    </div>
+                    <audio id="audio" controls style="display: none;"></audio>
+                    <div class="mixer" style="height: 200px;width: 100%;display: none;">
+                        <div class="bar" id="movivel" style="background-color: black;"></div>
+                        </div>   
+                </div>
+                    
+                </div>
+                <div class="time-info"></div>
+            </div>
+
+            <div class="audio-mixer">
+                <div class="audio-mixer-controllers">
+                    <div class="mixer-buttons-1">
+                        <button id="btn-prev"><i class="fa-solid fa-backward"></i></button>
+                        <button id="btn-pos"><i class="fa-solid fa-forward"></i></button>
+                    </div>
+                    <div class="mixer-buttons-2">
+                        <button id="btn-rec" style="background-color: #57313E;"><i class="fa-solid fa-circle"></i>
+                        </button>
+                        <button id="btn-play"><i class="fa-solid fa-play"></i></button>
+                        <button id="btn-restart"><i class="fa-solid fa-rotate-right"></i></button>
+                    </div>
+                    <div class="mixer-buttons-3">
+                        <button id="btn-stop"><i class="fa-solid fa-stop"></i></button>
+                        <button id="btn-pause"><i class="fa-solid fa-pause"></i></button>
+                    </div>
+                    <div class="duration audio-viewer-time" id="display-time">
+                        <h3 id="mostrar-tempo">00:00</h3>
+                    </div>
+                    <div
+                        style="display: flex;flex-direction: row;gap:10px;width: 69%;justify-content: center;align-items: center;">
+                        <div class="audio-mixer-status">
+                            [ PAUSADO ]
+                        </div>
+                        <div class="audio-mixer-select">
+                            <button id="recortar" class="btn-g6" >Recortar</button>
+                            <button id="mesclar2" class="btn-g7" >Mesclar</button>
+                            <button id="alongar2" class="btn-g8" >Alongar</button>
+                            <button id="retroceder2" class="btn-g9" >Retroceder</button>
+                            <button id="reverb2" class="btn-g10" >Reverb</button>
+                        </div>             
+                        
+                        
+                    </div>
+
+                </div>
+                
+            </div>
+
+        </section>
+        <div id="loadingModal" class="modal">
+            <div class="modal-content">
+                <h2>Carregando Áudio...</h2>
+                <p><strong>Nome:</strong> <span id="fileName">N/A</span></p>
+                <p><strong>Formato:</strong> <span id="fileFormat">N/A</span></p>
+                <p><strong>Tamanho:</strong> <span id="fileSize">N/A</span></p>
+                <div class="progress-container">
+                    <div class="progress-bar" id="progressBar"></div>
+                </div>
+                <p id="progressText">0%</p>
+            </div>
+        </div>
+
+        <div id="audioModalA" class="modal" style="display: none;">
+            <div class="modal-content">
+                <h2>Alongar Áudio</h2>
+                <form id="audioForm">
+                    <label for="actionSelect">Escolha a ação:</label>
+                    <select id="actionSelect">
+                        <option value="">Selecione...</option>
+                        <option value="appendAudio">Adicionar no fim</option>
+                    </select>
+        
+                    <!-- Novo seletor de arquivos -->
+                    <div id="fileSelectorContainer" class="hidden">
+                        <label for="fileSelectorA">Selecione um áudio:</label>
+                        <select id="fileSelectorA"></select>
+                    </div>
+        
+                    <div id="timeFields" class="hidden">
+                        <label for="startTime">Tempo de início (segundos):</label>
+                        <input type="number" id="startTime" min="0" step="0.1">
+        
+                        <label for="endTime">Tempo de fim (segundos):</label>
+                        <input type="number" id="endTime" min="0" step="0.1">
+                    </div>
+        
+                    <button type="submit" id="submitButton" class="hidden">Aplicar</button>
+                </form>
+                <button id="btn-cancelar">Cancelar</button>
+            </div>
+        </div>
+        
+          
+    </body>
+    </html>

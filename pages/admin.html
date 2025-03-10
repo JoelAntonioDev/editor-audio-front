@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Painel do Administrador</title>
+    <link rel="stylesheet" href="./../assets/css/admin.css" />
+    <link rel="stylesheet" href="./../assets/css/global.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Painel do Administrador</h1>
+      <h4 id="email-display"></h4>
+      <div class="header-buttons">
+        <button onclick="carregarUsuarios()" class="btn-gerenciar" style="background-color: lightgreen;color: black;">Gerenciar Usuários</button>
+        <button onclick="carregarHistorico()" class="btn-historico" style="background-color: lightgreen;color: black;">Ver Histórico de Atividades</button>
+        <button onclick="logout()" class="btn-sair" style="background-color: lightgreen;color: black;">Sair</button>
+      </div>
+    </header>
+
+    <main>
+      <h2 id="titulo-secao">Gerenciamento de Usuários</h2>
+      <div id="mensagem"></div>
+      <ul id="lista-dados"></ul>
+    </main>
+
+    <script src="./../assets/js/admin.js"></script>
+  </body>
+</html>
+

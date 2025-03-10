@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Meus Projetos</title>
+    <link rel="stylesheet" href="./../assets/css/projectos.css" />
+    <link rel="stylesheet" href="./../assets/css/global.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Meus Projetos</h1>
+      <h4 id="email-display"></h4>
+      <button onclick="logout()" class="btn-sair" style="background-color: lightgreen;color: black;">Sair</button>
+    </header>
+
+    <div id="create_project">
+      <button onclick="abrirModal()">Criar Projecto</button>
+    </div>
+
+    <main>
+      <div id="mensagem"></div>
+      <ul id="lista-projectos"></ul>
+    </main>
+
+    <!-- Modal para criar projeto -->
+    <div id="modal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="fecharModal()">&times;</span>
+        <h2>Criar Projeto</h2>
+        <input
+          type="text"
+          id="titulo"
+          placeholder="Título do Projeto"
+          required
+        />
+        <input type="file" id="audio" accept="audio/*" required />
+        <button onclick="criarProjecto()">Criar</button>
+      </div>
+    </div>
+    <script src="./../assets/js/projectos.js"></script>
+  </body>
+
+
+</html>
