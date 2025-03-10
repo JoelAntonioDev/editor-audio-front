@@ -12,9 +12,10 @@ class AudioManager {
     this.btnMesclar = document.getElementById("btn-c8");
     this.btnMesclar2 = document.querySelector(".btn-g7");
     this.btnEfeito = document.querySelector(".btn-gg4");
-    this.btnEfeito2 = document.querySelector(".btn-g10");    
+    this.btnEfeito2 = document.querySelector(".btn-g10");
     this.btnAlongar = document.getElementById("btn-c9");
     this.btnAlongar2 = document.querySelector(".btn-g8");
+    this.btnEncurtar = document.querySelector(".btn-g11");
     this.btnRestart = document.getElementById("btn-restart");
     this.btnRetrocederEdicao = document.getElementById("btn-c4");
     this.btnRetrocederEdicao2 = document.querySelector(".btn-g9");
@@ -58,6 +59,7 @@ class AudioManager {
       }
     });
   }
+
   handleFileChange(event) {
     event.preventDefault();
     const file = this.faixaFile.files[0];
@@ -67,10 +69,10 @@ class AudioManager {
     }
   }
 
-
   play() {
     this.audio.play();
   }
+
   reproduzirTodos() {
     const allAudioElements = document.querySelectorAll("audio");
 
@@ -123,6 +125,7 @@ class AudioManager {
 
     console.log("Todos os áudios estão zerados!");
   }
+
   reiniciarTodos() {
     const allAudioElements = document.querySelectorAll("audio");
 
@@ -136,6 +139,7 @@ class AudioManager {
     });
 
   }
+
   async loadAudio(file) {
     try {
       this.audioUI.showLoadingModal(file);
@@ -495,9 +499,9 @@ class AudioManager {
     let title = document.createElement("h3");
     title.textContent = "Selecione o áudio para recortar";
     title.style.color = "black";
-    title.style.maxWidth = "100%";  
-    title.style.overflow = "hidden"; 
-    title.style.whiteSpace = "normal";  
+    title.style.maxWidth = "100%";
+    title.style.overflow = "hidden";
+    title.style.whiteSpace = "normal";
     modal.appendChild(title);
 
     return modal;
@@ -512,13 +516,12 @@ class AudioManager {
       let option = document.createElement("option");
       option.value = fileName;
       option.textContent = fileName;
-      option.title = fileName; 
+      option.title = fileName;
       select.appendChild(option);
     });
 
     return select;
   }
-
 
   // Função para criar os inputs de tempo
   criarInputsTempo() {
@@ -691,9 +694,9 @@ class AudioManager {
 
     let title = document.createElement("h3");
     title.textContent = "Selecione o áudio para restaurar";
-    title.style.maxWidth = "100%";  
-    title.style.overflow = "hidden";  
-    title.style.whiteSpace = "normal"; 
+    title.style.maxWidth = "100%";
+    title.style.overflow = "hidden";
+    title.style.whiteSpace = "normal";
     title.style.color = "black";
     modal.appendChild(title);
 
@@ -784,8 +787,8 @@ class AudioManager {
 
     let title = document.createElement("h3");
     title.textContent = "Selecione o áudio para aplicar efeito";
-    title.style.maxWidth = "100%";  
-    title.style.overflow = "hidden";  
+    title.style.maxWidth = "100%";
+    title.style.overflow = "hidden";
     title.style.whiteSpace = "normal";
     title.style.color = "black";
     modal.appendChild(title);
@@ -851,7 +854,7 @@ class AudioManager {
         file_name: selectedFile,
         efeito: "reverb"
       };
-      console.log(requestBody+" "+ token);
+      console.log(requestBody + " " + token);
       // Envia a requisição para a API
       fetch("http://localhost:8000/api/editar/aplicar-efeito", {
         method: "POST",
@@ -952,7 +955,7 @@ class AudioManager {
 
       const responseData = await response.json();
 
-      
+
       this.showToast("Áudio alongado com sucesso", 3000, "sucesso");
 
       console.log("Resposta da API:", responseData);
@@ -963,6 +966,43 @@ class AudioManager {
       this.showToast("Ocorreu um erro ao processar o áudio. Tente novamente: " + error, 3000, "erro");
     }
   }
+
+  async encurtarAudio(selectedFile, startTime, endTime) {
+    let token = localStorage.getItem("token") || getCookie("token");
+     // Obtém o project_id da URL
+     const urlParams = new URLSearchParams(window.location.search);
+     const projectId = urlParams.get("project_id");
+    try {
+      const requestBody = {
+        project_id: projectId,
+        file_name: selectedFile,
+        start_time: startTime,
+        end_time: endTime
+      };
+
+      const response = await fetch("http://localhost:8000/api/editar/encurtar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${token}`
+        },
+        body: JSON.stringify(requestBody)
+      });
+
+      const data = await response.json();
+
+      if (data.status === "sucesso") {
+        this.showToast("Áudio encurtado com sucesso!", 3000, "sucesso");
+        setTimeout(() => window.location.reload(), 2000);
+      } else {
+        throw new Error(data.message);
+      }
+    } catch (error) {
+      console.error("Erro ao encurtar áudio:", error);
+      this.showToast("Erro ao encurtar áudio: " + error.message, 5000, "erro");
+    }
+  }
+
   attachListeners() {
     let audioViewer = document.querySelector(".audio-viewer");
     const audioControllers = document.querySelector(".audio-controllers");
@@ -1087,67 +1127,61 @@ class AudioManager {
       this.showToast("Abrindo opções para aplicar efeito...", 2000, "aviso");
       this.abrirModalEfeito(projectId);
     });
-    this.btnEfeito2.addEventListener("click",()=>{
+    this.btnEfeito2.addEventListener("click", () => {
       this.btnEfeito.click();
     })
 
     this.actionSelect.addEventListener("change", () => {
-      const selectedAction = this.actionSelect.value;
-
-      // Oculta tudo primeiro
-      this.timeFields.classList.add("hidden");
-      this.submitButton.classList.add("hidden");
-      this.fileSelectorContainer.classList.add("hidden");
-
-      // Exibe os campos necessários para a ação escolhida
-      if (selectedAction === "appendAudio") {
-        this.fileSelectorContainer.classList.remove("hidden");
-        this.timeFields.classList.remove("hidden");
-        this.submitButton.classList.remove("hidden");
-      } else if (selectedAction === "repeatFragment") {
-        this.timeFields.classList.remove("hidden");
-        this.submitButton.classList.remove("hidden");
-      }
-    });
-
-    this.form.addEventListener("submit", async (event) => {
-      event.preventDefault();
-
       const action = this.actionSelect.value;
-
-      // Seleciona diretamente os inputs dentro de timeFields
       const timeFields = document.getElementById("timeFields");
-      const startTimeInput = timeFields.querySelector("#startTime");
-      const endTimeInput = timeFields.querySelector("#endTime");
-
-      const startTime = startTimeInput ? parseFloat(startTimeInput.value) || null : null;
-      const endTime = endTimeInput ? parseFloat(endTimeInput.value) || null : null;
-
+      const fileSelectorContainer = document.getElementById("fileSelectorContainer");
+      const submitButton = document.getElementById("submitButton");
+  
+      fileSelectorContainer.classList.remove("hidden");
+      submitButton.classList.remove("hidden");
+  
+      if (action === "appendAudio" || action === "encurtarAudio") {
+          timeFields.classList.remove("hidden");
+      } else {
+          timeFields.classList.add("hidden");
+      }
+  });
+  
+  // Evento de envio do formulário
+  this.form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+  
+      const action = this.actionSelect.value;
+      let startTime = parseFloat(document.getElementById("startTime").value) || null;
+      let endTime = parseFloat(document.getElementById("endTime").value) || null;
       const selectedFile = this.fileSelector.value;
-
+  
       if (!action) {
-        this.showToast("Por favor, selecione uma ação!", 5000, "aviso");
-        return;
+          this.showToast("Por favor, selecione uma ação!", 5000, "aviso");
+          return;
       }
-
-      if (action === "appendAudio" && !selectedFile) {
-        this.showToast("Por favor, selecione um arquivo de áudio!", 5000, "aviso");
-        return;
+  
+      if (!selectedFile) {
+          this.showToast("Por favor, selecione um arquivo de áudio!", 5000, "aviso");
+          return;
       }
-
+      if(startTime==null)startTime=0;
       // Verifica se os tempos foram preenchidos corretamente
-      if ((startTime === null || endTime === null) && action !== "appendAudio") {
-        alert("Por favor, insira valores válidos para tempo de início e fim.");
-        return;
+      if ((startTime === null || endTime === null)) {
+        console.log(startTime,endTime);
+          this.showToast("Por favor, insira valores válidos para tempo de início e fim.", 5000, "aviso");
+          return;
       }
-
+  
       // Chamar a função correta
       if (action === "appendAudio") {
-        await this.appendAudio(selectedFile, startTime, endTime);
+          await this.appendAudio(selectedFile, startTime, endTime);
+      } else if (action === "encurtarAudio") {
+          await this.encurtarAudio(selectedFile, startTime, endTime);
       }
-
+  
       this.modalA.style.display = "none"; // Fecha o modal após o envio
-    });
+  });
 
     this.btnAlongar.addEventListener("click", async () => {
       this.modalA.style.display = "flex";
@@ -1221,21 +1255,21 @@ class AudioManager {
       this.btnPause.style.backgroundColor = "black";
       this.zerarTodos();
     });
-    this.btnRestart.addEventListener("click",()=>{
+    this.btnRestart.addEventListener("click", () => {
       this.btnRestart.style.backgroundColor = "lightgreen";
-      setTimeout(()=>{
+      setTimeout(() => {
         this.btnRestart.style.backgroundColor = "black";
-      },500);
+      }, 500);
       this.reiniciarTodos();
     })
     this.btnPrev.addEventListener("click", () => {
       this.changeButtonColor(this.btnPrev);
-      this.seekAudio(-10); 
+      this.seekAudio(-10);
     });
 
     this.btnPos.addEventListener("click", () => {
       this.changeButtonColor(this.btnPos);
-      this.seekAudio(10); 
+      this.seekAudio(10);
     });
   }
 }
